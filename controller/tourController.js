@@ -49,3 +49,31 @@ exports.getAllTour = async (req, res, next) => {
         })
     }
 }
+
+// get all tour 
+exports.getSortTour = async (req, res, next) => {
+    try {
+       
+        let sortStr;
+        if(req.query.sort){
+            sortStr=req.query.sort.split(',').join(' ')
+        }
+        console.log(sortStr)
+        const result = await Tour.find().sort(sortStr)
+        if (result) {
+            res.status(200).json({
+                message: 'Success',
+                status: true,
+                data: result
+            })
+        }
+    } catch (error) {
+        next(error)
+        res.status(400).json({
+            message: 'Couldnt get the data',
+            status: false,
+            error: error.message
+
+        })
+    }
+}
