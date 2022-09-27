@@ -7,4 +7,5 @@ router.post('/insert_tour',tourController.insertTour)
 router.post('/insert_single_tour',tourController.insertSingleTour)
 router.get('/tour',tourController.getAllTour)
 router.get('/sort_tour',tourController.getSortTour)
+router.get('/get_data_id/:id',tourController.getDataById)
 module.exports=router

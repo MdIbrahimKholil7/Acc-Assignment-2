@@ -49,6 +49,31 @@ exports.insertSingleTour = async (req, res, next) => {
         })
     }
 }
+// get single data by id 
+exports.getDataById = async (req, res, next) => {
+    try {
+
+        const { id } = req.params
+        const update = await Tour.updateOne({ _id: id }, { $inc: { view: 1 } })
+        const result = await Tour.findById(id)
+        if (result) {
+            res.status(200).json({
+                message: 'Success',
+                status: true,
+                data: result
+            })
+        }   
+
+    } catch (error) {
+        next(error)
+        res.status(400).json({
+            message: 'Couldnt insert the data',
+            status: false,
+            error: error.message
+
+        })
+    }
+}
 
 // get all tour 
 exports.getAllTour = async (req, res, next) => {
