@@ -62,7 +62,7 @@ exports.getDataById = async (req, res, next) => {
                 status: true,
                 data: result
             })
-        }   
+        }
 
     } catch (error) {
         next(error)
@@ -86,7 +86,7 @@ exports.updateDataById = async (req, res, next) => {
                 status: true,
                 data: result
             })
-        }   
+        }
 
     } catch (error) {
         next(error)
@@ -136,6 +136,31 @@ exports.getSortTour = async (req, res, next) => {
         const result = await Tour.find()
             .limit(limit)
             .skip(+limit * Number(page))
+        // .sort(sortStr)
+        if (result) {
+            res.status(200).json({
+                message: 'Success',
+                status: true,
+                data: result
+            })
+        }
+    } catch (error) {
+        next(error)
+        res.status(400).json({
+            message: 'Couldnt get the data',
+            status: false,
+            error: error.message
+
+        })
+    }
+}
+// get top 3 viewed data 
+exports.getTopView = async (req, res, next) => {
+    try {
+
+        const result = await Tour.find()
+            .sort('-view')
+            .limit(3)
         // .sort(sortStr)
         if (result) {
             res.status(200).json({
